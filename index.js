@@ -23,7 +23,7 @@ const AuthRouter = require('./routes/auth');
 
 
 // Database connection
-mongoose.connect('mongodb://localhost:27017/dbAgentTimeMonitor');
+mongoose.connect('mongodb://127.0.0.1:27017/dbAgentTimeMonitor');
 
 
 server.get('/', ( request, response ) => {

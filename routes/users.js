@@ -46,22 +46,56 @@ router.put('/:id', ( request, response ) => {
     }
 });
 
-//Update a user password
+// //Update a user password
+// router.put('/password/:id', async (request, response) => {
+//     try{
+//         const hashedPassword = await bcrypt.hash( request.body.password, 10 );
+//         const userId = request.params.id;
+//         let result = await User.updateOne(
+//             { _id: userId },
+//             { $set: { ...request.body,
+//                     password: hashedPassword
+//             }}
+//         );
+//         if (result.modifiedCount === 1) {
+//         response.status(200).send({ status: "Password Update is successful!" });
+//         } 
+//     }catch(error){
+//         response.status(500).send({status:'server error'})
+//     }
+// });
+
 router.put('/password/:id', async (request, response) => {
-    try{
-        const hashedPassword = await bcrypt.hash( request.body.password, 10 );
+    try {
+        // Check if the request body includes a valid password
+        if (!request.body.password) {
+            response.status(400).send({ status: 'Invalid password' });
+            return;
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(request.body.password, 10);
         const userId = request.params.id;
-        let result = await User.updateOne(
+
+        // Update the user's password
+        const result = await User.updateOne(
             { _id: userId },
-            { $set: { ...request.body,
+            {
+                $set: {
+                    ...request.body,
                     password: hashedPassword
-            }}
+                }
+            }
         );
+
         if (result.modifiedCount === 1) {
-        response.status(200).send({ status: "Password Update is successful!" });
-        } 
-    }catch(error){
-        response.status(500).send({status:'server error'})
+            response.status(200).send({ status: 'Password update is successful!' });
+        } else {
+            response.status(404).send({ status: 'User not found or password not updated' });
+        }
+    } catch (error) {
+        console.error(error,);
+        response.status(500).send({ status: 'Server error' });
     }
 });
 
