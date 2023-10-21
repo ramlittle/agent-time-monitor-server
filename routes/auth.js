@@ -39,7 +39,8 @@ router.post('/login', ( request, response ) => {
                 // Autheticated, valid email and password
                 response.send({
                     status: "Valid crendentials",
-                    id: result._id
+                    id: result._id,
+                    email:result.email
                 });
             }else{
                 response.send({
