@@ -18,7 +18,7 @@ server.use( helmet() );
 // Routes
 const UserRouter = require('./routes/users');
 const AuthRouter = require('./routes/auth');
-// const breakRouter = require('./routes/breaks');
+const BreakRouter = require('./routes/breaks');
 // const agentOutRouter = require('./routes/agentOuts');
 
 
@@ -34,7 +34,7 @@ server.get('/', ( request, response ) => {
 // endpoints
 server.use('/api/v1/auth', AuthRouter );
 server.use('/api/v1/users', UserRouter );
-// server.use('/api/v1/breaks', breakRouter );
+server.use('/api/v1/breaks', BreakRouter );
 // server.use('/api/v1/agentOuts', agentOutRouter );
 
 
