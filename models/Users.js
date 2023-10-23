@@ -4,9 +4,9 @@ const UserSchema = new mongoose.Schema({
     americanName:  String,
     email:     String,
     password:  String,
-    userType:  String,
+    role:  String,
     pictureLink: String,
-    teamAssignment: String,   
+    team: String,   
 });
 
 
